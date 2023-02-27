@@ -26,5 +26,12 @@
     "title": "About Zayn",
     "section": "",
     "text": "About this blog"
+  },
+  {
+    "objectID": "posts/Perceptron/Perceptron.html",
+    "href": "posts/Perceptron/Perceptron.html",
+    "title": "My Awesome CSCI 0451 Blog",
+    "section": "",
+    "text": "def draw_line(w, x_min, x_max):\n  x = np.linspace(x_min, x_max, 101)\n  y = -(w[0]*x + w[2])/w[1]\n  plt.plot(x, y, color = \"black\")\n\nfig = plt.scatter(X[:,0], X[:,1], c = y)\nfig = draw_line(p.weight[0], -2, 2)\n\nxlab = plt.xlabel(\"Feature 1\")\nylab = plt.ylabel(\"Feature 2\")\n\n\n\n\n\nX2, y2 = make_blobs(n_samples = 100, n_features = p_features - 1, centers = [(1.0, 0.9), (1.0, 1.0)])\n\np2 = Perceptron()\np2.fit(X, y, max_steps = 1000)\n\nfig2 = plt.scatter(X2[:,0], X2[:,1], c = y2)\nfig2 = draw_line(p2.weight[0], -2, 2)\n\nxlab = plt.xlabel(\"Feature 1\")\nylab = plt.ylabel(\"Feature 2\")"
   }
 ]
