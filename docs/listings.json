@@ -2,7 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Penguins/Penguins.html",
       "/posts/Perceptron/Perceptron.html",
+      "/posts/Gradient-Descent/LogisticRegressiono.html",
       "/posts/example-blog-post/index.html"
     ]
   }
