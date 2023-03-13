@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Zayn Makdessi">
+<meta name="dcterms.date" content="2023-03-12">
+<meta name="description" content="Complete Perceptron.">
 
-<title>My Awesome CSCI 0451 Blog – perceptron</title>
+<title>My Awesome CSCI 0451 Blog - Blog Post 1: Perceptron</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -169,7 +172,39 @@ background-size: cover;
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Blog Post 1: Perceptron</h1>
+                  <div>
+        <div class="description">
+          Complete Perceptron.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Zayn Makdessi </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 12, 2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -178,8 +213,9 @@ background-size: cover;
 
 
 
-<p>Blog Post 1: Perceptron</p>
-<p>https://zaynmak.github.io/posts/Perceptron/Perceptron.html When <em>fit</em> is called, the perceptron takes random weights and starts looping until the score reaches 1, or we’ve done max_steps number of loops. We then take the dot product of a random observation with the weight, and if it is negative then we add that abservation to the weight, otherwise if the dot product is positive then we subtract the observation from the weight. After that we check the score of our perceptron using the <em>score</em> function, which in turn calls the <em>predict</em> function and then add the result to our history variable.</p>
+
+<p>https://zaynmak.github.io/posts/Perceptron/Perceptron.html</p>
+<p>When <em>fit</em> is called, the perceptron takes random weights and starts looping until the score reaches 1, or we’ve done max_steps number of loops. We then take the dot product of a random observation with the weight, and if it is negative then we add that abservation to the weight, otherwise if the dot product is positive then we subtract the observation from the weight. After that we check the score of our perceptron using the <em>score</em> function, which in turn calls the <em>predict</em> function and then add the result to our history variable.</p>
 <div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
