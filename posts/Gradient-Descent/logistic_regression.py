@@ -9,7 +9,7 @@ class LogisticRegression:
         
     def predict(self, X):
         #  X is bring transposed to make it a column vector
-        return (np.dot(self.w, X.T) >= 0).astype(int)
+        return np.dot(self.w, X.T)
     
     def sigmoid(self, z):
         return 1 / (1 + np.exp(-z))
@@ -22,7 +22,7 @@ class LogisticRegression:
         return np.mean(self.logistic_loss(y_hat, y))
 
     def score(self, X, y):
-        return np.mean(self.predict(X) == y)
+        return np.mean((self.predict(X) >= 0).astype(int) == y)
 
     def gradient(self, X, y):
         sigm = (self.sigmoid(self.predict(X)) - y)
@@ -34,10 +34,7 @@ class LogisticRegression:
         prev_loss = np.inf
         
         for i in range(max_epochs):
-            print(self.w)
-            print(self.gradient(X_, y))
             self.w -= alpha * self.gradient(X_, y)
-            print(self.w)
             new_loss = self.empirical_risk(X_, y)
             self.loss_history.append(new_loss)
             self.score_history.append(self.score(X_, y))
@@ -56,6 +53,27 @@ class LogisticRegression:
         #     self.score_history.append(score)
         #     if score == 1:
         #         break
+    
+    def fit_stochastic(self, X, y, alpha, batch_size, max_epochs, momentum = False):
+        X_ = np.append(X, np.ones((X.shape[0], 1)), 1)
+        n = X.shape[0]
+        self.w = np.random.rand(1, 3)[0]
+
+        for j in np.arange(max_epochs):
+                    
+            order = np.arange(n)
+            np.random.shuffle(order)
+
+            for batch in np.array_split(order, n // batch_size + 1):
+                x_batch = X_[batch,:]
+                y_batch = y[batch]
+                grad = self.gradient(x_batch, y_batch) 
+                # if momentum:
+                #     beta? = 0.8
+                # perform the gradient step
+                self.w -= alpha * grad
+
+            self.loss_history.append(self.empirical_risk(X_, y))
 
 def pad(X):
     return np.append(X, np.ones((X.shape[0], 1)), 1)
