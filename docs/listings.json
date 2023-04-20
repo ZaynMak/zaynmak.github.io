@@ -3,7 +3,8 @@
     "listing": "/index.html",
     "items": [
       "/posts/Penguins/Penguins.html",
-      "/posts/Gradient-Descent/LogisticRegressiono.html",
+      "/posts/Learning from Timnit Gebru/Learning from Timnit Gebru.html",
+      "/posts/Gradient-Descent/LogisticRegression.html",
       "/posts/Perceptron/Perceptron.html",
       "/posts/example-blog-post/index.html"
     ]
