@@ -77,11 +77,13 @@ class LogisticRegression:
                 grad = self.gradient(x_batch, y_batch) 
                 
                 temp = self.w.copy()
-                # perform the gradient step
-                self.w += ((beta * (self.w + self.prev_w)) - (alpha * grad))
-                self.prev_w = temp
+                # perform the gradient step, if momentum is true, we add the momentum term
+                self.w += ((beta * (self.w - self.prev_w)) - (alpha * grad))
+                self.prev_w = temp.copy()
 
+            # we keep track of the loss and score
             self.loss_history.append(self.empirical_risk(X_, y))
+            self.score_history.append(self.score(X_, y))
 
 def pad(X):
     return np.append(X, np.ones((X.shape[0], 1)), 1)
