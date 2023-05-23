@@ -2,9 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Allocative-Bias/bias.html",
       "/posts/ML-Project/project-post.html",
       "/posts/Penguins/Penguins.html",
-      "/posts/Allocative-Bias/bias.html",
       "/posts/Linear-Regression/Linear-Regression.html",
       "/posts/Learning from Timnit Gebru/Learning from Timnit Gebru.html",
       "/posts/Gradient-Descent/LogisticRegression.html",
