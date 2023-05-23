@@ -1,61 +1,56 @@
 import numpy as np
 
-def pad(X):
-    return np.append(X, np.ones((X.shape[0], 1)), 1)
-
 class LinearRegression:
     def __init__(self):
         self.w = None
         self.score_history = []
-        
-    def linear_regression_gradient(w, X, two_alpha_X_transpose, y):
-        return two_alpha_X_transpose * (np.dot(X, w) - y)
 
-    def loss(self, X, y):
-        y_pred = np.predict(X)
-        return np.linalg.norm(y_pred - y) ** 2
+    def fit_analytic(self, X, y):
+        X = pad(X)
+        self.w = np.random.rand(1, X.shape[1])[0]
+        self.w = np.dot(np.linalg.inv(np.dot(X.T, X)), np.dot(X.T, y))
+
+    def fit_gradient(self, X, y, batch_size, alpha = 0.01, max_iter = 100):
+        n = X.shape[0]
+        X_ = pad(X)
+        self.w = np.random.rand(1, X_.shape[1])[0]
+
+        # we iterate over the number of epochs and perform the gradient step
+        for j in np.arange(max_iter):
+            # we shuffle the order of the examples
+            order = np.arange(n)
+            np.random.shuffle(order)
+
+            # we iterate over the batches and perform the gradient step
+            for batch in np.array_split(order, n // batch_size + 1):
+                x_batch = X_[batch,:]
+                y_batch = y[batch]
+
+                P = np.dot(x_batch.T, x_batch)
+                q = np.dot(x_batch.T, y_batch)
+                grad = self.gradient(P, q)
+
+                # perform the gradient step
+                self.w -= alpha * grad
+                if len(self.w) != X_.shape[1]:
+                    raise Exception(f"Number of initial weights passed does not match number of features: {len(self.w)}!={X_.shape[1]}")
+
+            # we keep track of the score
+            self.score_history.append(self.score(X, y))
+    
+    def gradient(self, P, q):
+        return 2 * (np.dot(P, self.w) - q)
 
     def predict(self, X):
-        if X.shape[1] == len(self.w) - 1: X = pad(X)
-        return np.dot(X, self.w)
+        return np.dot(self.w, X.T)
 
-    def score(self, X, y, denominator=None):
+    def score(self, X, y):
+        X = pad(X)
         y_pred = self.predict(X)
-        numerator = np.linalg.norm(y_pred - y) ** 2
-
-        if denominator is None:
-            y_mean = sum(y) / len(y)
-            denominator = np.linalg.norm(y_mean - y) ** 2
-
-        return 1 - (numerator / denominator)
-
-    def set_w(self, features, initial_w=None, range_min= -5, range_max=5):
-        if initial_w is None:
-            self.w = ((2*range_max) * np.random.random(features)) - range_min
-        elif len(initial_w) != features:
-            raise Exception(f"Number of initial weights passed does not match number of features: {len(initial_w)}!={features}")
-        else:
-            self.w = initial_w
-    
-    def fit_analytical(self, X, y):
-        X = pad(X)
-        X_transpose = X.T
-        self.w = np.dot(np.linalg.inv(np.dot(X_transpose, X)), np.dot(X_transpose, y))
-
-    def fit_gradient(self, X, y, w=None, alpha=.01, max_steps=100):
-        X = pad(X)
-        X_transpose = X.T
-        
-        P = np.dot(X_transpose, X)
-        q = np.dot(X_transpose, y)
-        gradient = lambda w: 2 * (np.dot(P, w) - q)
-        
-        # for calculating the score
+        num = np.linalg.norm(y_pred - y) ** 2
         y_mean = sum(y) / len(y)
-        denominator = np.linalg.norm(y_mean - y) ** 2
+        den = np.linalg.norm(y_mean - y) ** 2
+        return 1 - (num / den)    
 
-        self.set_w(initial_w=w, features=X.shape[1])
-        for _ in range(max_steps):
-            #adjust weights
-            self.w = self.w - alpha * gradient(self.w)
-            self.score_history.append(self.score(X, y, denominator))
+def pad(X):
+    return np.append(X, np.ones((X.shape[0], 1)), 1)
